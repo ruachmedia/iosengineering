@@ -225,6 +225,8 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.06);padding:40px 2
 .wfab{position:fixed;bottom:24px;right:20px;z-index:900;display:flex;align-items:center;gap:9px;background:#25D366;color:#fff;padding:13px 20px 13px 15px;border-radius:50px;font-size:13px;font-weight:700;box-shadow:0 4px 20px rgba(37,211,102,.3);transition:all .25s;animation:pulse 2.5s infinite;}
 .wfab:hover{transform:scale(1.05);}.wfab svg{width:20px;height:20px;flex-shrink:0;}
 @media(max-width:600px){.wfab span{display:none;}.wfab{padding:14px;border-radius:50%;}}
+/* SCROLL PROGRESS */
+.scprog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.25) 100%);z-index:2001;width:0%;transition:width .08s linear;pointer-events:none;}
 /* SCROLL TO TOP */
 .stf{position:fixed;bottom:28px;left:20px;z-index:800;width:44px;height:44px;border-radius:50%;background:rgba(18,18,18,.88);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none;}
 .stf.show{opacity:1;transform:translateY(0);pointer-events:auto;}
@@ -236,7 +238,7 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.06);padding:40px 2
 /* TICKER */
 .ticker-wrap{background:#0a0a0a;overflow:hidden;padding:11px 0;border-top:1px solid rgba(255,255,255,.06);}
 .ticker-inner{display:inline-flex;white-space:nowrap;animation:ticker 32s linear infinite;}
-.ticker-inner span{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);padding:0 32px;}
+.ticker-inner span{font-size:9.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);padding:0 28px;}
 .ticker-inner span em{color:#fff;font-style:normal;}
 /* HERO DARK */
 #hero{background:#000;}
@@ -330,6 +332,7 @@ select.fi2{-webkit-appearance:none;appearance:none;background-image:url("data:im
 </style>
 </head>
 <body>
+<div id="scprog" class="scprog"></div>
 
 <!-- HEADER -->
 <header id="hdr">
@@ -739,8 +742,16 @@ function switchTab(i){
   const track=document.getElementById('mcarTrack');
   if(track){const outer=track.parentElement,pad=parseFloat(getComputedStyle(outer).paddingLeft)||52,gap=16,pw=outer.clientWidth-pad*2;track.style.transform=`translateX(-${i*(pw+gap)}px)`;}
 }
-// ── SCROLL TO TOP ──
-window.addEventListener('scroll',()=>{const b=document.getElementById('stf');if(b)b.classList.toggle('show',window.scrollY>400);},{passive:true});
+// ── SCROLL TO TOP + PROGRESS + PARALLAX ──
+window.addEventListener('scroll',()=>{
+  const sy=window.scrollY;
+  const b=document.getElementById('stf');
+  if(b) b.classList.toggle('show',sy>400);
+  const p=document.getElementById('scprog');
+  if(p){const tot=document.documentElement.scrollHeight-window.innerHeight;p.style.width=(tot>0?Math.min(sy/tot*100,100):0)+'%';}
+  const ph=document.querySelector('.hphoto');
+  if(ph&&sy<window.innerHeight) ph.style.transform=`translateY(${sy*0.28}px)`;
+},{passive:true});
 
 // ── FAQ ──
 function toggleFaq(el) {

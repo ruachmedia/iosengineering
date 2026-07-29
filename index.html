@@ -181,47 +181,69 @@
       font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-      transition: var(--transition);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
       cursor: pointer;
       box-shadow: var(--shadow-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .cta-button:hover::before {
+      width: 200px;
+      height: 200px;
     }
 
     .cta-button:hover {
       background: var(--hover);
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.05);
       box-shadow: var(--shadow-medium);
     }
 
     .mobile-menu-btn {
       display: none;
-      background: var(--primary);
+      background: none;
       border: none;
-      font-size: 24px;
-      color: white;
+      font-size: 20px;
+      color: var(--primary);
       cursor: pointer;
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      transition: var(--transition);
     }
 
-    .mobile-menu-btn:hover {
-      transform: scale(1.05);
-    }
-
-    /* Hero Section - Dark Black with Good Background Photo */
+    /* Hero Section - Dark Black with Big RUACH Text */
     .hero {
       position: relative;
       min-height: 100vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(31, 37, 51, 0.9) 100%), url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1920');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      background: #000000;
       overflow: hidden;
       padding-top: 70px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(31, 37, 51, 0.3) 0%, transparent 50%),
+                  linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     .hero-container {
@@ -300,26 +322,88 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .hero-features {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      max-width: 600px;
-      margin: 0 auto 35px;
+    /* Training Features Section */
+    .training-features-section {
+      background: #ffffff;
+      padding: 80px 0;
+      overflow: hidden;
     }
 
-    .hero-feature {
+    .training-title {
+      text-align: center;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      color: var(--headings);
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+
+    .training-carousel-row {
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .training-carousel-track {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 14px;
-      font-weight: 500;
+      gap: 25px;
+      animation: scrollLeftToRight 25s linear infinite;
     }
 
-    .hero-feature i {
-      color: #4CAF50;
+    .training-carousel-track.scroll-reverse {
+      animation: scrollRightToLeft 25s linear infinite;
+    }
+
+    @keyframes scrollLeftToRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes scrollRightToLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+
+    .training-card {
+      flex: 0 0 auto;
+      width: 380px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .training-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .training-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .training-card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      color: white;
+      padding: 40px 20px 20px;
+    }
+
+    .training-card-content h3 {
       font-size: 16px;
+      font-weight: 600;
+      color: white;
+      margin: 0;
+      line-height: 1.4;
     }
 
     /* Photo Carousel Section - Squarespace Style */
@@ -348,7 +432,7 @@
       border-radius: 16px;
       overflow: hidden;
       position: relative;
-      box-shadow: var(--shadow-light);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       transition: var(--transition);
       background: var(--background);
       cursor: pointer;
@@ -371,19 +455,25 @@
     }
 
     .carousel-card-content {
-      padding: 25px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+      color: white;
+      padding: 30px 20px 20px;
     }
 
     .carousel-card-content h3 {
       font-size: 18px;
       font-weight: 600;
-      color: var(--headings);
+      color: white;
       margin-bottom: 8px;
     }
 
     .carousel-card-content p {
       font-size: 14px;
-      color: var(--body-text);
+      color: rgba(255, 255, 255, 0.9);
       line-height: 1.5;
     }
 
@@ -442,30 +532,52 @@
       background: var(--primary);
     }
 
-    /* Slide-in Popup */
-    .slide-popup {
+    /* Center Popup Notification */
+    .popup-overlay {
       position: fixed;
-      left: 0;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9998;
+      display: none;
+    }
+
+    .popup-overlay.active {
+      display: block;
+    }
+
+    .center-popup {
+      position: fixed;
       top: 50%;
-      transform: translateY(-50%) translateX(-100%);
-      width: 380px;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 400px;
+      max-width: 90%;
       background: var(--background);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-      border-radius: 0 16px 16px 0;
-      z-index: 1000;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      z-index: 9999;
       overflow: hidden;
+      display: none;
+      border: 1px solid var(--borders);
     }
 
-    .slide-popup.active {
-      transform: translateY(-50%) translateX(0);
+    .center-popup.active {
+      display: block;
+      animation: popupSlideIn 0.3s ease forwards;
     }
 
-    .slide-popup.minimized {
-      transform: translateY(-50%) translateX(-360px);
+    @keyframes popupSlideIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
 
-    .slide-popup-header {
+    .popup-header {
       background: var(--primary);
       color: white;
       padding: 15px 20px;
@@ -474,18 +586,13 @@
       align-items: center;
     }
 
-    .slide-popup-header h3 {
+    .popup-header h3 {
       font-size: 16px;
       font-weight: 600;
       margin: 0;
     }
 
-    .slide-popup-controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    .slide-popup-btn {
+    .popup-close {
       background: none;
       border: none;
       color: white;
@@ -496,41 +603,41 @@
       transition: var(--transition);
     }
 
-    .slide-popup-btn:hover {
+    .popup-close:hover {
       background: rgba(255,255,255,0.2);
     }
 
-    .slide-popup-content {
+    .popup-content {
       padding: 20px;
     }
 
-    .slide-popup-content h4 {
+    .popup-content h4 {
       font-size: 18px;
       font-weight: 600;
       color: var(--primary);
       margin-bottom: 15px;
     }
 
-    .slide-popup-content p {
+    .popup-content p {
       font-size: 14px;
       color: var(--body-text);
       line-height: 1.6;
       margin-bottom: 15px;
     }
 
-    .slide-popup-content .batch-info {
+    .popup-content .batch-info {
       background: var(--light-bg);
       padding: 15px;
       border-radius: 12px;
       margin-bottom: 15px;
     }
 
-    .slide-popup-content .batch-info strong {
+    .popup-content .batch-info strong {
       color: var(--primary);
       font-size: 16px;
     }
 
-    .slide-popup-content .apply-btn {
+    .popup-content .apply-btn {
       width: 100%;
       padding: 12px 20px;
       background: var(--primary);
@@ -543,107 +650,48 @@
       transition: var(--transition);
     }
 
-    .slide-popup-content .apply-btn:hover {
+    .popup-content .apply-btn:hover {
       background: var(--hover);
       transform: translateY(-2px);
     }
 
-    .slide-popup-toggle {
+    .popup-toggle-btn {
       position: fixed;
       left: 0;
       top: 50%;
       transform: translateY(-50%);
       background: var(--primary);
       color: white;
-      padding: 15px 10px;
-      border-radius: 0 8px 8px 0;
+      padding: 15px 12px;
+      border-radius: 0 12px 12px 0;
       cursor: pointer;
-      z-index: 999;
+      z-index: 9997;
       transition: var(--transition);
       display: none;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
 
-    .slide-popup-toggle:hover {
+    .popup-toggle-btn.show {
+      display: block;
+      animation: slideInLeft 0.3s ease;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateY(-50%) translateX(-100%);
+      }
+      to {
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+
+    .popup-toggle-btn:hover {
+      transform: translateY(-50%) translateX(5px);
       background: var(--hover);
     }
 
-    .slide-popup-toggle.show {
-      display: block;
-    }
-
-    /* Fixed WhatsApp Icon */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 60px;
-      height: 60px;
-      background: #25D366;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-      z-index: 1000;
-      transition: var(--transition);
-      text-decoration: none;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-    }
-
-    /* Image Curved Corners */
-    img {
-      border-radius: 12px;
-    }
-
-    /* 3D Scroll Animations */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(60px) rotateX(10deg);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0) rotateX(0deg);
-    }
-
-    .slide-left {
-      opacity: 0;
-      transform: translateX(-80px) rotateY(15deg);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .slide-left.visible {
-      opacity: 1;
-      transform: translateX(0) rotateY(0deg);
-    }
-
-    .slide-right {
-      opacity: 0;
-      transform: translateX(80px) rotateY(-15deg);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .slide-right.visible {
-      opacity: 1;
-      transform: translateX(0) rotateY(0deg);
-    }
-
-    .scale-in {
-      opacity: 0;
-      transform: scale(0.8) rotateZ(5deg);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .scale-in.visible {
-      opacity: 1;
-      transform: scale(1) rotateZ(0deg);
+    .popup-toggle-btn i {
+      font-size: 20px;
     }
 
     /* Section Styles */
@@ -869,7 +917,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, rgba(31, 37, 51, 0.1) 0%, transparent 50%);
+      background: linear-gradient(135deg, rgba(31, 37, 51, 0.1) 0%, transparent 50%),
+                  linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%),
+                  linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 100%);
       pointer-events: none;
     }
 
@@ -885,7 +935,10 @@
     }
 
     .about-content {
-      padding: 20px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .about-content h3 {
@@ -952,6 +1005,18 @@
     .feature-image {
       height: 250px;
       overflow: hidden;
+      position: relative;
+    }
+
+    .feature-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+      pointer-events: none;
     }
 
     .feature-image img {
@@ -983,7 +1048,7 @@
       line-height: 1.7;
     }
 
-    /* Course Modules Section - High Quality Bento Box */
+    /* Course Modules Section - Different Styles */
     .modules-section {
       background: var(--background);
       padding: 100px 0;
@@ -991,72 +1056,78 @@
 
     .modules-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, auto);
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
       max-width: 1400px;
       margin: 0 auto;
     }
 
     .module-card {
       background: var(--light-bg);
-      padding: 35px;
-      border-radius: 20px;
-      border: 1px solid var(--borders);
+      padding: 25px;
+      border-radius: 16px;
+      border: 2px solid var(--borders);
       transition: var(--transition);
-      box-shadow: var(--shadow-light);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
     }
+
+    .module-card:nth-child(1) { border-color: #4F46E5; }
+    .module-card:nth-child(2) { border-color: #7C3AED; }
+    .module-card:nth-child(3) { border-color: #EC4899; }
+    .module-card:nth-child(4) { border-color: #F59E0B; }
+    .module-card:nth-child(5) { border-color: #10B981; }
+    .module-card:nth-child(6) { border-color: #3B82F6; }
+    .module-card:nth-child(7) { border-color: #EF4444; }
+    .module-card:nth-child(8) { border-color: #8B5CF6; }
 
     .module-card:hover {
-      transform: translateY(-12px);
-      box-shadow: var(--shadow-medium);
-      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
-    .module-card.large {
-      grid-column: span 2;
-      grid-row: span 2;
-      background: var(--primary);
-      color: white;
+    .module-card-header {
+      margin-bottom: 20px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
     }
 
-    .module-card.large h3 {
-      color: white;
-    }
-
-    .module-card.large ul li {
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .module-card.large ul li::before {
-      color: white;
-    }
-
-    .module-card.wide {
-      grid-column: span 2;
-    }
-
-    .module-card h3 {
-      font-size: 20px;
+    .module-card-header h3 {
+      font-size: 18px;
       font-weight: 700;
       color: var(--primary);
-      margin-bottom: 22px;
-      padding-bottom: 18px;
-      border-bottom: 2px solid var(--accent);
-      letter-spacing: -0.01em;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .module-card:nth-child(1) .module-card-header h3 { color: #4F46E5; }
+    .module-card:nth-child(2) .module-card-header h3 { color: #7C3AED; }
+    .module-card:nth-child(3) .module-card-header h3 { color: #EC4899; }
+    .module-card:nth-child(4) .module-card-header h3 { color: #F59E0B; }
+    .module-card:nth-child(5) .module-card-header h3 { color: #10B981; }
+    .module-card:nth-child(6) .module-card-header h3 { color: #3B82F6; }
+    .module-card:nth-child(7) .module-card-header h3 { color: #EF4444; }
+    .module-card:nth-child(8) .module-card-header h3 { color: #8B5CF6; }
+
+    .module-card-body {
+      flex: 1;
     }
 
     .module-card ul {
       list-style: none;
+      margin: 0;
     }
 
     .module-card li {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--body-text);
-      padding: 10px 0;
-      padding-left: 28px;
+      padding: 8px 0;
+      padding-left: 24px;
       position: relative;
-      line-height: 1.7;
+      line-height: 1.5;
     }
 
     .module-card li::before {
@@ -1065,12 +1136,12 @@
       left: 0;
       color: var(--primary);
       font-weight: bold;
-      font-size: 20px;
+      font-size: 16px;
     }
 
-    /* Who Can Join Section - High Quality Design */
+    /* Who Can Join Section - List Design */
     .join-section {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
       padding: 100px 0;
     }
@@ -1084,41 +1155,201 @@
     }
 
     .join-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      max-width: 1400px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px 30px;
+      max-width: 1000px;
       margin: 0 auto;
+      justify-content: center;
     }
 
     .join-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 25px;
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 40px 25px;
-      border-radius: 20px;
-      text-align: center;
+      border-radius: 50px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       transition: var(--transition);
-      box-shadow: var(--shadow-light);
+    }
+
+    .join-item::before {
+      content: '✓';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: white;
+      color: var(--primary);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-right: 12px;
+      flex-shrink: 0;
     }
 
     .join-item:hover {
       background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-medium);
-    }
-
-    .join-item i {
-      font-size: 40px;
-      margin-bottom: 20px;
-      opacity: 0.9;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-light);
     }
 
     .join-item p {
       font-size: 15px;
       color: white;
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      background: var(--light-bg);
+      padding: 100px 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+      padding: 20px;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay p {
+      color: white;
+      font-size: 16px;
       font-weight: 600;
-      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* YouTube Reviews Section */
+    .youtube-section {
+      background: var(--background);
+      padding: 100px 0;
+    }
+
+    .youtube-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .youtube-card {
+      background: var(--light-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+    }
+
+    .youtube-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .youtube-card iframe {
+      display: block;
+    }
+
+    .youtube-card h3 {
+      padding: 15px 20px;
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* Certificate Section - Auto Scroll */
+    .certificate-section {
+      background: var(--light-bg);
+      padding: 100px 0;
+      overflow: hidden;
+    }
+
+    .certificate-scroll {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .certificate-track {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 20px 0;
+      animation: scrollLeft 30s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .certificate-track:hover {
+      animation-play-state: paused;
+    }
+
+    .certificate-item {
+      flex: 0 0 auto;
+      width: 350px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+    }
+
+    .certificate-item:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .certificate-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
     }
 
     /* FAQ Section - High Quality Design */
@@ -1182,7 +1413,7 @@
       padding: 0 30px;
       max-height: 0;
       overflow: hidden;
-      transition: var(--transition);
+      transition: max-height 0.3s ease, padding 0.3s ease;
     }
 
     .faq-item.active .faq-answer {
@@ -1194,68 +1425,6 @@
       font-size: 15px;
       color: var(--body-text);
       line-height: 1.7;
-    }
-
-    /* Testimonials Section - High Quality Design */
-    .testimonials-section {
-      background: var(--light-bg);
-      padding: 100px 0;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 40px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .testimonial-card {
-      background: var(--background);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: var(--shadow-light);
-      border: 1px solid var(--borders);
-      transition: var(--transition);
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-medium);
-    }
-
-    .testimonial-video {
-      width: 100%;
-      height: 250px;
-      background: var(--light-bg);
-      border-radius: 16px;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--light-text);
-      font-size: 16px;
-    }
-
-    .testimonial-content h4 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--headings);
-      margin-bottom: 10px;
-    }
-
-    .testimonial-content .role {
-      font-size: 14px;
-      color: var(--primary);
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-
-    .testimonial-content p {
-      font-size: 15px;
-      color: var(--body-text);
-      line-height: 1.7;
-      font-style: italic;
     }
 
     /* Contact Section - High Quality Design */
@@ -1359,24 +1528,6 @@
       color: rgba(255, 255, 255, 0.9);
       margin: 0;
       line-height: 1.6;
-    }
-
-    .contact-buttons {
-      display: flex;
-      gap: 15px;
-      margin-top: 25px;
-      flex-wrap: wrap;
-    }
-
-    .contact-buttons .cta-button {
-      background: white;
-      color: var(--primary);
-    }
-
-    .contact-buttons .cta-button.primary {
-      background: transparent;
-      color: white;
-      border: 2px solid white;
     }
 
     /* Footer */
@@ -1524,59 +1675,23 @@
     @media (max-width: 768px) {
       .nav-menu {
         display: none;
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 85%;
-        max-width: 320px;
-        height: 100vh;
-        background: var(--primary);
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--background);
         flex-direction: column;
-        padding: 100px 40px 40px;
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
-        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 999;
-        gap: 0;
+        padding: 30px;
+        box-shadow: var(--shadow-medium);
+        gap: 20px;
       }
 
       .nav-menu.active {
         display: flex;
-        right: 0;
-      }
-
-      .nav-link {
-        font-size: 20px;
-        padding: 18px 0;
-        color: white;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        font-weight: 500;
-      }
-
-      .nav-link:hover {
-        color: rgba(255, 255, 255, 0.8);
-        padding-left: 10px;
       }
 
       .mobile-menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        bottom: 20px;
-        right: 20px;
-      }
-
-      .slide-popup {
-        width: 320px;
-      }
-
-      .slide-popup.minimized {
-        transform: translateY(-50%) translateX(-300px);
+        display: block;
       }
 
       .hero-content {
@@ -1657,7 +1772,7 @@
     <i class="fas fa-moon"></i>
   </button>
 
-  <!-- Latest Updates Landscape Poster -->
+
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
     <div class="navbar-container">
@@ -1675,20 +1790,16 @@
     </div>
   </nav>
 
-  <!-- Slide-in Popup -->
-  <div class="slide-popup" id="slidePopup">
-    <div class="slide-popup-header">
+  <!-- Center Popup Notification -->
+  <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
+  <div class="center-popup" id="centerPopup">
+    <div class="popup-header">
       <h3>🔔 Latest Updates</h3>
-      <div class="slide-popup-controls">
-        <button class="slide-popup-btn" id="minimizePopup" title="Minimize">
-          <i class="fas fa-minus"></i>
-        </button>
-        <button class="slide-popup-btn" id="closePopup" title="Close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
+      <button class="popup-close" onclick="closePopup()">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
-    <div class="slide-popup-content">
+    <div class="popup-content">
       <h4>🎓 New Telugu Batch Starting Soon!</h4>
       <div class="batch-info">
         <strong>📅 August 10th - 15th, 2024</strong>
@@ -1700,45 +1811,19 @@
     </div>
   </div>
 
-  <button class="slide-popup-toggle" id="popupToggle">
+  <button class="popup-toggle-btn" id="popupToggle" onclick="openPopup()">
     <i class="fas fa-bell"></i>
   </button>
-
-  <!-- Fixed WhatsApp Icon -->
-  <a href="https://wa.me/919642557796" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-  </a>
 
   <!-- Hero Section - Dark Black with Big RUACH Text -->
   <section class="hero">
     <div class="hero-container">
       <div class="hero-content">
-        <h1 class="fade-up">RUACH Institute of Sound Engineering</h1>
-        <h2 class="fade-up">Become a Professional Live Sound Engineer</h2>
-        <p class="fade-up">Master the art of Live Sound Engineering through an intensive practical training program designed for churches, concerts, worship teams, live events, and sound rental businesses.</p>
+        <h1 class="fade-up visible">RUACH</h1>
+        <h2 class="fade-up visible">Institute of Sound Engineering</h2>
+        <p class="fade-up visible">Master Live Sound Engineering with our intensive 6-day practical training program. Transform your passion for audio into professional expertise using state-of-the-art equipment in real-world environments.</p>
         
-        <div class="hero-features fade-up">
-          <div class="hero-feature">
-            <i class="fas fa-check"></i> 100% Hands-on Practical Training
-          </div>
-          <div class="hero-feature">
-            <i class="fas fa-check"></i> Digital Console Operation & Mixing
-          </div>
-          <div class="hero-feature">
-            <i class="fas fa-check"></i> DSP & DriveRack Configuration
-          </div>
-          <div class="hero-feature">
-            <i class="fas fa-check"></i> Crown Amplifier Configuration
-          </div>
-          <div class="hero-feature">
-            <i class="fas fa-check"></i> Professional System Tuning
-          </div>
-          <div class="hero-feature">
-            <i class="fas fa-check"></i> Live Sound Workflow
-          </div>
-        </div>
-        
-        <div class="hero-buttons fade-up">
+        <div class="hero-buttons fade-up visible">
           <a href="#contact" class="cta-button">Apply Now</a>
           <a href="https://wa.me/919642557796" class="cta-button primary">
             <i class="fab fa-whatsapp"></i> WhatsApp Us
@@ -1748,11 +1833,103 @@
     </div>
   </section>
 
+  <!-- Training Features Section -->
+  <section class="training-features-section">
+    <div class="container">
+      <h2 class="training-title">6 Days Intensive Practical Training</h2>
+      
+      <!-- First Row - Scroll Left to Right -->
+      <div class="training-carousel-row">
+        <div class="training-carousel-track" id="trainingCarousel1">
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600" alt="Hands-on Training">
+            <div class="training-card-content">
+              <h3>100% Hands-on Practical Training</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600" alt="Digital Console">
+            <div class="training-card-content">
+              <h3>Digital Console Operation & Mixing</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600" alt="DSP Configuration">
+            <div class="training-card-content">
+              <h3>DSP & DriveRack Configuration</h3>
+            </div>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600" alt="Hands-on Training">
+            <div class="training-card-content">
+              <h3>100% Hands-on Practical Training</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600" alt="Digital Console">
+            <div class="training-card-content">
+              <h3>Digital Console Operation & Mixing</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600" alt="DSP Configuration">
+            <div class="training-card-content">
+              <h3>DSP & DriveRack Configuration</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Second Row - Scroll Right to Left -->
+      <div class="training-carousel-row">
+        <div class="training-carousel-track scroll-reverse" id="trainingCarousel2">
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600" alt="Amplifier Configuration">
+            <div class="training-card-content">
+              <h3>Crown Amplifier Configuration</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=600" alt="System Tuning">
+            <div class="training-card-content">
+              <h3>Professional System Tuning</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600" alt="Live Sound Workflow">
+            <div class="training-card-content">
+              <h3>Live Sound Workflow in Our Training Environment</h3>
+            </div>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600" alt="Amplifier Configuration">
+            <div class="training-card-content">
+              <h3>Crown Amplifier Configuration</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=600" alt="System Tuning">
+            <div class="training-card-content">
+              <h3>Professional System Tuning</h3>
+            </div>
+          </div>
+          <div class="training-card">
+            <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600" alt="Live Sound Workflow">
+            <div class="training-card-content">
+              <h3>Live Sound Workflow in Our Training Environment</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Photo Carousel Section -->
   <section class="photo-scroll-section">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">0</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
         <h2>Our Training Environment</h2>
         <p>State-of-the-art equipment and professional facilities</p>
@@ -1802,15 +1979,6 @@
             </div>
           </div>
         </div>
-        <div class="carousel-controls">
-          <button class="carousel-btn" id="carouselPrev">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-          <div class="carousel-dots" id="carouselDots"></div>
-          <button class="carousel-btn" id="carouselNext">
-            <i class="fas fa-chevron-right"></i>
-          </button>
-        </div>
       </div>
     </div>
   </section>
@@ -1818,17 +1986,16 @@
   <!-- About Section -->
   <section class="about-section" id="about">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">1</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
         <h2>About Us</h2>
         <p>Learn more about our institute and training philosophy</p>
       </div>
       <div class="about-grid">
-        <div class="about-image slide-left">
+        <div class="about-image slide-left visible">
           <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200" alt="Sound Engineering Training">
         </div>
-        <div class="about-content slide-right">
+        <div class="about-content slide-right visible">
           <h3>About Us</h3>
           <h2>Learn Live Sound the Practical Way</h2>
           <p>RUACH Institute of Sound Engineering is dedicated to providing industry-oriented Live Sound Engineering training with a strong emphasis on practical learning. Our institute combines theoretical knowledge with hands-on experience using professional equipment.</p>
@@ -1843,14 +2010,13 @@
   <!-- Features Section -->
   <section class="features-section" id="features">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">2</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
         <h2>Why Choose RUACH?</h2>
         <p>What makes our training program stand out</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card fade-up">
+        <div class="feature-card fade-up visible">
           <div class="feature-image">
             <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600" alt="Practical Learning">
           </div>
@@ -1859,7 +2025,7 @@
             <p>Gain real hands-on experience using professional live sound equipment in a real-world environment.</p>
           </div>
         </div>
-        <div class="feature-card fade-up">
+        <div class="feature-card fade-up visible">
           <div class="feature-image">
             <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600" alt="Industry Curriculum">
           </div>
@@ -1868,7 +2034,7 @@
             <p>Training designed around real workflows used in churches, concerts, conferences, and live events.</p>
           </div>
         </div>
-        <div class="feature-card fade-up">
+        <div class="feature-card fade-up visible">
           <div class="feature-image">
             <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600" alt="Beginner Friendly">
           </div>
@@ -1877,7 +2043,7 @@
             <p>No previous experience is required. We teach everything from the basics to advanced techniques.</p>
           </div>
         </div>
-        <div class="feature-card fade-up">
+        <div class="feature-card fade-up visible">
           <div class="feature-image">
             <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=600" alt="Industry Workflow">
           </div>
@@ -1886,7 +2052,7 @@
             <p>Understand how professional sound engineers prepare, mix, tune, and manage complete live sound systems.</p>
           </div>
         </div>
-        <div class="feature-card fade-up">
+        <div class="feature-card fade-up visible">
           <div class="feature-image">
             <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600" alt="Small Batch">
           </div>
@@ -1895,7 +2061,7 @@
             <p>Limited seats ensure every student receives individual practical attention and personalized feedback.</p>
           </div>
         </div>
-        <div class="feature-card fade-up">
+        <div class="feature-card fade-up visible">
           <div class="feature-image">
             <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600" alt="Certificate">
           </div>
@@ -1911,119 +2077,144 @@
   <!-- Course Modules Section -->
   <section class="modules-section" id="modules">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">3</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
         <h2>Course Modules</h2>
         <p>Comprehensive curriculum covering all aspects of live sound engineering</p>
       </div>
       <div class="modules-grid">
-        <div class="module-card large fade-up">
-          <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800" alt="Audio Fundamentals" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:20px;">
-          <h3>Audio Fundamentals</h3>
-          <ul>
-            <li>Introduction to Live Sound Engineering</li>
-            <li>What is Sound?</li>
-            <li>How Sound is Produced</li>
-            <li>Frequency & Wavelength</li>
-            <li>Human Hearing Range</li>
-            <li>Audio Signal Flow</li>
-            <li>Balanced & Unbalanced Audio</li>
-            <li>Mic, Line & Speaker Levels</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>Audio Fundamentals</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>Introduction to Live Sound Engineering</li>
+              <li>What is Sound?</li>
+              <li>How Sound is Produced</li>
+              <li>Frequency & Wavelength</li>
+              <li>Human Hearing Range</li>
+              <li>Audio Signal Flow</li>
+              <li>Balanced & Unbalanced Audio</li>
+              <li>Mic, Line & Speaker Levels</li>
+            </ul>
+          </div>
         </div>
-        <div class="module-card fade-up">
-          <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800" alt="Microphones" style="width:100%; height:150px; object-fit:cover; border-radius:16px; margin-bottom:15px;">
-          <h3>Microphones & Audio Connections</h3>
-          <ul>
-            <li>Audio Cables & Connectors</li>
-            <li>DI Box</li>
-            <li>Microphone Types</li>
-            <li>Polar Patterns</li>
-            <li>Phantom Power (48V)</li>
-            <li>Microphone Placement Techniques</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>Microphones & Audio Connections</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>Audio Cables & Connectors</li>
+              <li>DI Box</li>
+              <li>Microphone Types</li>
+              <li>Polar Patterns</li>
+              <li>Phantom Power (48V)</li>
+              <li>Microphone Placement Techniques</li>
+            </ul>
+          </div>
         </div>
-        <div class="module-card wide fade-up">
-          <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800" alt="Mixing Console" style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:18px;">
-          <h3>Mixing Console Operation</h3>
-          <ul>
-            <li>Analog Mixing Console</li>
-            <li>Digital Console Operation</li>
-            <li>Channel Strip Functions</li>
-            <li>Gain Structure</li>
-            <li>Channel EQ</li>
-            <li>AUX & Monitor Mixing</li>
-            <li>Routing</li>
-            <li>DCA & Matrix</li>
-            <li>Scenes & Presets</li>
-            <li>Console Workflow</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>Mixing Console Operation</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>Analog Mixing Console</li>
+              <li>Digital Console Operation</li>
+              <li>Channel Strip Functions</li>
+              <li>Gain Structure</li>
+              <li>Channel EQ</li>
+              <li>AUX & Monitor Mixing</li>
+              <li>Routing</li>
+              <li>DCA & Matrix</li>
+              <li>Scenes & Presets</li>
+              <li>Console Workflow</li>
+            </ul>
+          </div>
         </div>
-        <div class="module-card fade-up">
-          <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800" alt="Audio Processing" style="width:100%; height:150px; object-fit:cover; border-radius:16px; margin-bottom:15px;">
-          <h3>Audio Processing</h3>
-          <ul>
-            <li>Equalization (EQ)</li>
-            <li>High Pass & Low Pass Filters</li>
-            <li>Compressor</li>
-            <li>Gate</li>
-            <li>Limiter</li>
-            <li>Feedback Control</li>
-            <li>FX Processing</li>
-            <li>Reverb & Delay</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>Audio Processing</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>Equalization (EQ)</li>
+              <li>High Pass & Low Pass Filters</li>
+              <li>Compressor</li>
+              <li>Gate</li>
+              <li>Limiter</li>
+              <li>Feedback Control</li>
+              <li>FX Processing</li>
+              <li>Reverb & Delay</li>
+            </ul>
+          </div>
         </div>
-        <div class="module-card fade-up">
-          <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800" alt="Digital Mixing" style="width:100%; height:150px; object-fit:cover; border-radius:16px; margin-bottom:15px;">
-          <h3>Digital Mixing & Live Workflow</h3>
-          <ul>
-            <li>Digital Console Mixing</li>
-            <li>Live Mixing Techniques</li>
-            <li>Multitrack Recording</li>
-            <li>Professional Mixing Workflow</li>
-            <li>Monitor Mixing</li>
-            <li>Live Event Signal Management</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>Digital Mixing & Live Workflow</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>Digital Console Mixing</li>
+              <li>Live Mixing Techniques</li>
+              <li>Multitrack Recording</li>
+              <li>Professional Mixing Workflow</li>
+              <li>Monitor Mixing</li>
+              <li>Live Event Signal Management</li>
+            </ul>
+          </div>
         </div>
-        <div class="module-card fade-up">
-          <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800" alt="DSP Configuration" style="width:100%; height:150px; object-fit:cover; border-radius:16px; margin-bottom:15px;">
-          <h3>DSP & System Configuration</h3>
-          <ul>
-            <li>DSP Fundamentals</li>
-            <li>DriveRack Configuration</li>
-            <li>Digital Crossovers</li>
-            <li>HPF / LPF</li>
-            <li>Phase & Polarity</li>
-            <li>Time Alignment</li>
-            <li>Signal Routing</li>
-            <li>System Optimization</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>DSP & System Configuration</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>DSP Fundamentals</li>
+              <li>DriveRack Configuration</li>
+              <li>Digital Crossovers</li>
+              <li>HPF / LPF</li>
+              <li>Phase & Polarity</li>
+              <li>Time Alignment</li>
+              <li>Signal Routing</li>
+              <li>System Optimization</li>
+            </ul>
+          </div>
         </div>
-        <div class="module-card fade-up">
-          <h3>Amplifiers & PA Systems</h3>
-          <ul>
-            <li>Crown Amplifier Configuration</li>
-            <li>Gain Settings</li>
-            <li>Stereo & Bridge Mode</li>
-            <li>Speaker Impedance Matching</li>
-            <li>Power Distribution</li>
-            <li>System Monitoring</li>
-            <li>Basic Troubleshooting</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>Amplifiers & PA Systems</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>Crown Amplifier Configuration</li>
+              <li>Gain Settings</li>
+              <li>Stereo & Bridge Mode</li>
+              <li>Speaker Impedance Matching</li>
+              <li>Power Distribution</li>
+              <li>System Monitoring</li>
+              <li>Basic Troubleshooting</li>
+            </ul>
+          </div>
         </div>
-        <div class="module-card fade-up">
-          <h3>Practical Sessions</h3>
-          <ul>
-            <li>Console Setup</li>
-            <li>Live Sound System Setup</li>
-            <li>Stage Patch & Signal Flow</li>
-            <li>Digital Mixing Practice</li>
-            <li>DSP Configuration</li>
-            <li>System Tuning</li>
-            <li>Live Event Workflow</li>
-            <li>Hands-on Practical Exercises</li>
-          </ul>
+        <div class="module-card fade-up visible">
+          <div class="module-card-header">
+            <h3>Practical Sessions</h3>
+          </div>
+          <div class="module-card-body">
+            <ul>
+              <li>Console Setup</li>
+              <li>Live Sound System Setup</li>
+              <li>Stage Patch & Signal Flow</li>
+              <li>Digital Mixing Practice</li>
+              <li>DSP Configuration</li>
+              <li>System Tuning</li>
+              <li>Live Event Workflow</li>
+              <li>Hands-on Practical Exercises</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -2032,91 +2223,144 @@
   <!-- Who Can Join Section -->
   <section class="join-section" id="join">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">4</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
         <h2>Who Can Join?</h2>
         <p>Our course is designed for everyone interested in live sound</p>
       </div>
       <div class="join-grid">
-        <div class="join-item fade-up">
-          <i class="fas fa-user"></i>
+        <div class="join-item fade-up visible">
           <p>Future Sound Engineers</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-church"></i>
+        <div class="join-item fade-up visible">
           <p>Church Sound Teams</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-music"></i>
+        <div class="join-item fade-up visible">
           <p>Worship Musicians</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-truck"></i>
+        <div class="join-item fade-up visible">
           <p>Sound Vendors</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-store"></i>
+        <div class="join-item fade-up visible">
           <p>Sound Rental Owners</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-calendar-alt"></i>
+        <div class="join-item fade-up visible">
           <p>Event Technicians</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-video"></i>
+        <div class="join-item fade-up visible">
           <p>Media Teams</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-headphones"></i>
+        <div class="join-item fade-up visible">
           <p>Audio Enthusiasts</p>
         </div>
-        <div class="join-item fade-up">
-          <i class="fas fa-seedling"></i>
+        <div class="join-item fade-up visible">
           <p>Complete Beginners</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Student Testimonials Section -->
-  <section class="testimonials-section" id="testimonials">
+  <!-- Gallery Section -->
+  <section class="gallery-section" id="gallery">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">5</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
-        <h2>Student Testimonials</h2>
-        <p>Hear directly from our students who have transformed their knowledge and confidence through practical training at RUACH Institute of Sound Engineering</p>
+        <h2>Photo Gallery</h2>
+        <p>Explore our training facilities and student work</p>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card scale-in">
-          <div class="testimonial-video">
-            <i class="fas fa-play-circle" style="font-size: 48px;"></i>
-          </div>
-          <div class="testimonial-content">
-            <h4>Student Name</h4>
-            <p class="role">Church Sound Engineer</p>
-            <p>"The practical training at RUACH Institute completely transformed my understanding of live sound. I can now confidently manage our church's sound system."</p>
+      <div class="gallery-grid">
+        <div class="gallery-item fade-up visible">
+          <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600" alt="Training Session">
+          <div class="gallery-overlay">
+            <p>Training Session</p>
           </div>
         </div>
-        <div class="testimonial-card scale-in">
-          <div class="testimonial-video">
-            <i class="fas fa-play-circle" style="font-size: 48px;"></i>
-          </div>
-          <div class="testimonial-content">
-            <h4>Student Name</h4>
-            <p class="role">Sound Vendor</p>
-            <p>"This course gave me the technical skills to grow my sound rental business. The hands-on experience with real equipment was invaluable."</p>
+        <div class="gallery-item fade-up visible">
+          <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600" alt="Equipment Setup">
+          <div class="gallery-overlay">
+            <p>Equipment Setup</p>
           </div>
         </div>
-        <div class="testimonial-card scale-in">
-          <div class="testimonial-video">
-            <i class="fas fa-play-circle" style="font-size: 48px;"></i>
+        <div class="gallery-item fade-up visible">
+          <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600" alt="Live Event">
+          <div class="gallery-overlay">
+            <p>Live Event</p>
           </div>
-          <div class="testimonial-content">
-            <h4>Student Name</h4>
-            <p class="role">Worship Musician</p>
-            <p>"As a worship musician, understanding sound engineering has helped me communicate better with our sound team and improve our overall worship experience."</p>
+        </div>
+        <div class="gallery-item fade-up visible">
+          <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600" alt="Student Practice">
+          <div class="gallery-overlay">
+            <p>Student Practice</p>
+          </div>
+        </div>
+        <div class="gallery-item fade-up visible">
+          <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=600" alt="Console Training">
+          <div class="gallery-overlay">
+            <p>Console Training</p>
+          </div>
+        </div>
+        <div class="gallery-item fade-up visible">
+          <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600" alt="System Tuning">
+          <div class="gallery-overlay">
+            <p>System Tuning</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube Reviews Section -->
+  <section class="youtube-section" id="reviews">
+    <div class="container">
+      <div class="section-header fade-up visible">
+        <div class="section-divider"></div>
+        <h2>Student Reviews</h2>
+        <p>Watch what our students say about their experience</p>
+      </div>
+      <div class="youtube-grid">
+        <div class="youtube-card fade-up visible">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Student Review 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <h3>Student Experience</h3>
+        </div>
+        <div class="youtube-card fade-up visible">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Student Review 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <h3>Course Review</h3>
+        </div>
+        <div class="youtube-card fade-up visible">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Student Review 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <h3>Training Quality</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificate Section -->
+  <section class="certificate-section" id="certificates">
+    <div class="container">
+      <div class="section-header fade-up visible">
+        <div class="section-divider"></div>
+        <h2>Our Certificates</h2>
+        <p>Recognized certification upon course completion</p>
+      </div>
+      <div class="certificate-scroll">
+        <div class="certificate-track" id="certificateTrack">
+          <div class="certificate-item">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400" alt="Certificate 1">
+          </div>
+          <div class="certificate-item">
+            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400" alt="Certificate 2">
+          </div>
+          <div class="certificate-item">
+            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400" alt="Certificate 3">
+          </div>
+          <div class="certificate-item">
+            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400" alt="Certificate 4">
+          </div>
+          <div class="certificate-item">
+            <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=400" alt="Certificate 5">
+          </div>
+          <div class="certificate-item">
+            <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400" alt="Certificate 6">
           </div>
         </div>
       </div>
@@ -2126,50 +2370,49 @@
   <!-- FAQ Section -->
   <section class="faq-section" id="faq">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">6</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
         <h2>Frequently Asked Questions</h2>
         <p>Find answers to common questions about our course</p>
       </div>
       <div class="faq-grid">
-        <div class="faq-item fade-up">
+        <div class="faq-item fade-up visible">
           <div class="faq-question">
             <h4>Is this course beginner friendly?</h4>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Yes. The course starts from the basics and gradually progresses to professional live sound engineering.</p>
+            <p>Yes. The course starts from the basics and gradually progresses to professional live sound engineering. No prior experience is required.</p>
           </div>
         </div>
-        <div class="faq-item fade-up">
+        <div class="faq-item fade-up visible">
           <div class="faq-question">
             <h4>Is this a practical course?</h4>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Absolutely. The training focuses primarily on hands-on practical sessions with real equipment.</p>
+            <p>Absolutely. The training focuses primarily on hands-on practical sessions with real equipment. You'll work with professional gear throughout the course.</p>
           </div>
         </div>
-        <div class="faq-item fade-up">
+        <div class="faq-item fade-up visible">
           <div class="faq-question">
             <h4>Will I receive a certificate?</h4>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Yes. Every student who successfully completes the course will receive a Course Completion Certificate.</p>
+            <p>Yes. Every student who successfully completes the course will receive a Course Completion Certificate that validates your professional training.</p>
           </div>
         </div>
-        <div class="faq-item fade-up">
+        <div class="faq-item fade-up visible">
           <div class="faq-question">
             <h4>Can church sound teams join?</h4>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Yes. This course is highly beneficial for church sound operators and worship teams.</p>
+            <p>Yes. This course is highly beneficial for church sound operators and worship teams looking to improve their technical skills and knowledge.</p>
           </div>
         </div>
-        <div class="faq-item fade-up">
+        <div class="faq-item fade-up visible">
           <div class="faq-question">
             <h4>Can sound vendors and rental operators join?</h4>
             <i class="fas fa-chevron-down"></i>
@@ -2185,14 +2428,13 @@
   <!-- Contact Section -->
   <section class="contact-section" id="contact">
     <div class="container">
-      <div class="section-header fade-up">
-        <div class="section-number">7</div>
+      <div class="section-header fade-up visible">
         <div class="section-divider"></div>
         <h2>Contact Us</h2>
         <p>Admissions Open Now - Get in touch to enroll</p>
       </div>
       <div class="contact-grid">
-        <div class="contact-form slide-left">
+        <div class="contact-form slide-left visible">
           <h3>Apply Now</h3>
           <form id="contactForm">
             <div class="form-group">
@@ -2214,26 +2456,27 @@
             <button type="submit" class="cta-button">Submit Application</button>
           </form>
         </div>
-        <div class="contact-info slide-right">
+        <div class="contact-info slide-right visible">
           <h3>Get In Touch</h3>
-          <p>Admissions Open Now. Reach out to us with any questions about our course.</p>
+          <p>We're here to help you start your journey in live sound engineering. Reach out to us with any questions.</p>
           
           <div class="contact-item">
             <i class="fas fa-map-marker-alt"></i>
-            <p>📍 A2, 156–159, Paigah Apartment, Sardar Patel Road, Viman Nagar, Kalasiguda, Secunderabad, Hyderabad – 500003</p>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <p>📞 +91 96425 57796</p>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-envelope"></i>
-            <p>📧 ruachruachmedia.in@gmail.com</p>
+            <p>A2, 156–159, Paigah Apartment, Sardar Patel Road, Viman Nagar, Kalasiguda, Secunderabad, Hyderabad – 500003</p>
           </div>
           
-          <div class="contact-buttons">
-            <a href="#" class="cta-button">Apply Now</a>
-            <a href="https://wa.me/919642557796" class="cta-button primary">
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <p>+91 96425 57796</p>
+          </div>
+          
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <p>ruachruachmedia.in@gmail.com</p>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <a href="https://wa.me/919642557796" class="cta-button">
               <i class="fab fa-whatsapp"></i> Contact on WhatsApp
             </a>
           </div>
@@ -2394,30 +2637,35 @@
       updateCarousel();
     });
 
-    // Slide Popup Functionality
-    const slidePopup = document.getElementById('slidePopup');
-    const minimizePopup = document.getElementById('minimizePopup');
-    const closePopup = document.getElementById('closePopup');
+    // Center Popup Functionality
+    const centerPopup = document.getElementById('centerPopup');
+    const popupOverlay = document.getElementById('popupOverlay');
     const popupToggle = document.getElementById('popupToggle');
 
     // Show popup after 3 seconds
     setTimeout(() => {
-      slidePopup.classList.add('active');
+      centerPopup.classList.add('active');
+      popupOverlay.classList.add('active');
     }, 3000);
 
-    minimizePopup.addEventListener('click', () => {
-      slidePopup.classList.toggle('minimized');
-      popupToggle.classList.toggle('show');
-    });
-
-    closePopup.addEventListener('click', () => {
-      slidePopup.classList.remove('active');
+    // Close popup function
+    window.closePopup = function() {
+      centerPopup.classList.remove('active');
+      popupOverlay.classList.remove('active');
       popupToggle.classList.add('show');
-    });
+    };
 
+    // Open popup function
+    window.openPopup = function() {
+      centerPopup.classList.add('active');
+      popupOverlay.classList.add('active');
+      popupToggle.classList.remove('show');
+    };
+
+    // Toggle button click
     popupToggle.addEventListener('click', () => {
-      slidePopup.classList.toggle('active');
-      slidePopup.classList.remove('minimized');
+      centerPopup.classList.add('active');
+      popupOverlay.classList.add('active');
       popupToggle.classList.remove('show');
     });
 
@@ -2460,7 +2708,7 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-up, .slide-left, .slide-right, .scale-in').forEach(el => {
+    document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => {
       observer.observe(el);
     });
 
